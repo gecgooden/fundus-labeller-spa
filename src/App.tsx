@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Box, Tab, Tabs } from '@mui/material';
+import { useAppState } from './components/AppContext';
+import { Action, Tab as Page } from './reducer';
+import { View } from './views/View';
+import { TabPanel } from './components/TabPanel';
+import { AlertDialog } from './components/AlertDialog';
 
-function App() {
+export const App: React.FC = () => {
+  const { currentTab, model, dispatch } = useAppState();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs centered value={Object.values(Page).indexOf(currentTab)}>
+          {
+            Object.values(Page).map(tab => <Tab
+              key={tab}
+              onClick={() => dispatch({ type: Action.ChangeTab, tab })}
+              label={tab}
+            />)
+          }
+        </Tabs>
+      </Box>
+      <TabPanel>
+        <View />
+      </TabPanel>
+      <AlertDialog 
+        visible={model === undefined && currentTab === Page.Label}
+        title='Model is missing' 
+        description='A trained model is required. Please go to settings and import your model.' 
+        actions={[
+          {
+            text: 'Go to Settings', handler: () => {
+              dispatch({ type: Action.ChangeTab, tab: Page.Settings });
+            }
+          }
+        ]}
+      />
+    </Box>
   );
-}
-
-export default App;
+};
