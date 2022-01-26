@@ -1,24 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button } from '@mui/material';
 import { useAppState } from "./AppContext"
 import { LinearProgressWithLabel } from './LinearProgressWithLabel';
-import { IPCChannels } from '../types';
-import { readAsDataURL } from '../utils';
 
 export const OrganiseFiles: React.FC = () => {
     const { report } = useAppState();
     const [numCompleted, setNumCompleted] = React.useState(0);
-
-    // useEffect(() => {
-    //     window.electron.ipcRenderer.on(IPCChannels.OrganiseFiles, (index) => {
-    //         console.log(index);
-    //         setNumCompleted(index + 1);
-    //     })
-
-    //     return () => {
-    //         window.electron.ipcRenderer.removeAllListeners(IPCChannels.OrganiseFiles)
-    //     }
-    // }, []);
 
     if (!report) return <></>;
 

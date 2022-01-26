@@ -1,17 +1,3 @@
-export const shuffleArray = <T>(a: Array<T>) => {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    } return a;
-}
-
-export const splitArray = <T>(a: Array<T>, split: number): T[][] => {
-    return [
-        a.slice(0, Math.floor(a.length * split)),
-        a.slice(Math.ceil(a.length * split), a.length)
-    ]
-}
-
 export const readAsDataURL = (fileReader: FileReader = new FileReader()) =>
     (file: File): Promise<string> =>
         new Promise((resolve, reject) => {

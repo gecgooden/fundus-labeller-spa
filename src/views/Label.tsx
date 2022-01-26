@@ -35,14 +35,10 @@ export const Label: React.FC = () => {
         const model = await tf.loadGraphModel('./model.json');
 
         const results: LabelResult[] = [];
-        const profile = await tf.profile(async () => {
-            for (let i = 0; i < files.length; i++) {
-                results.push(await labelImage(model as GraphModel, files[i]));
-                setCount(i + 1);
-            }
-        });
-        console.log(profile);
-        console.log(results);
+        for (let i = 0; i < files.length; i++) {
+            results.push(await labelImage(model as GraphModel, files[i]));
+            setCount(i + 1);
+        }
         dispatch({
             type: Action.ReportCreated, report: {
                 timestamp: new Date(),
@@ -57,11 +53,11 @@ export const Label: React.FC = () => {
             Label Images
         </Button>
         <p>
-            Loaded {count}/{max} images.
+            Labelled {count}/{max} images.
         </p>
         <LinearProgressWithLabel value={(count / max) * 100 || 0} />
 
-        <hr/>
+        <hr />
         <OrganiseFiles />
     </>
 }

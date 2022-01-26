@@ -2,8 +2,8 @@ import React, { useContext, useReducer, createContext } from 'react';
 import { appReducer, AppState, Tab } from '../reducer';
 
 const initialState: AppState = {
+    isSupported: !!window.showDirectoryPicker,
     currentTab: Tab.Label,
-    model: false,
     report: undefined,
     dispatch: () => {}
 };

@@ -7,7 +7,7 @@ import { TabPanel } from './components/TabPanel';
 import { AlertDialog } from './components/AlertDialog';
 
 export const App: React.FC = () => {
-  const { currentTab, model, dispatch } = useAppState();
+  const { isSupported, currentTab, dispatch } = useAppState();
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -26,16 +26,10 @@ export const App: React.FC = () => {
         <View />
       </TabPanel>
       <AlertDialog 
-        visible={model === undefined && currentTab === Page.Label}
-        title='Model is missing' 
-        description='A trained model is required. Please go to settings and import your model.' 
-        actions={[
-          {
-            text: 'Go to Settings', handler: () => {
-              dispatch({ type: Action.ChangeTab, tab: Page.Settings });
-            }
-          }
-        ]}
+        visible={!isSupported}
+        title='This browser is not supported' 
+        description='This website needs special features that are not supported in your current web browser. Please open this site in either Google Chrome or Microsoft Edge.'
+        actions={[]}
       />
     </Box>
   );

@@ -3,7 +3,6 @@ import { useAppState } from "../components/AppContext";
 import { Tab } from "../reducer";
 import { Label } from "./Label";
 import { Report } from './Report';
-import { Settings } from "./Settings";
 
 export const View: React.FC = () => {
     const { currentTab } = useAppState();
@@ -13,7 +12,5 @@ export const View: React.FC = () => {
         return <Label />;
       case Tab.Report:
         return <Report />
-      case Tab.Settings:
-        return <Settings />
     }
 } 

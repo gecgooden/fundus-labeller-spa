@@ -4,7 +4,6 @@ import { Report } from "./types";
 export enum Tab {
     Label = "Label",
     Report = "Report",
-    Settings = "Settings",
 }
 
 export enum Action {
@@ -18,20 +17,16 @@ export interface ChangeTabAction {
     tab: Tab
 }
 
-export interface ModelLoadedAction {
-    type: Action.ModelLoaded
-}
-
 export interface ReportCreatedAction {
     type: Action.ReportCreated
     report: Report
 }
 
-export type Actions = ChangeTabAction | ModelLoadedAction | ReportCreatedAction;
+export type Actions = ChangeTabAction | ReportCreatedAction;
 
 export interface AppState {
+    isSupported: boolean
     currentTab: Tab
-    model: boolean
     report: Report | undefined
     dispatch: Dispatch<Actions>
 }
@@ -43,11 +38,6 @@ export const appReducer = (state: AppState, action: Actions): AppState => {
                 ...state,
                 currentTab: action.tab,
             };
-        case Action.ModelLoaded:
-            return {
-                ...state,
-                model: true,
-            }
         case Action.ReportCreated:
             return {
                 ...state,
